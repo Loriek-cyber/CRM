@@ -1,7 +1,7 @@
 package com.loriek.crmloriek.config;
 
 import com.loriek.crmloriek.model.user.User;
-import com.loriek.crmloriek.repository.UserRepository;
+import com.loriek.crmloriek.model.user.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

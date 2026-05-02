@@ -1,7 +1,5 @@
-package com.loriek.crmloriek.service;
+package com.loriek.crmloriek.model.user;
 
-import com.loriek.crmloriek.model.user.User;
-import com.loriek.crmloriek.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
