@@ -7,7 +7,9 @@
 </head>
 <body>
     <h1>HomePage</h1>
-    <p>Welcome, <span th:text="${#authentication.name}">User</span>!</p>
+
+    <a th:href="@{/new-log}">Nuovo log</a>
+
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>
     </form>
