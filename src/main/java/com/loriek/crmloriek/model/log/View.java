@@ -1,10 +1,6 @@
 package com.loriek.crmloriek.model.log;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,13 +12,26 @@ public class View {
     private LocalDateTime data;
     private String agent;
 
+    @ManyToOne
+    @JoinColumn(name = "log_id")
+    private Log log;
+
     public View() {
     }
 
-    public View(String ip, String agent) {
+    public View(String ip, String agent, Log log) {
         this.ip = ip;
         this.data = LocalDateTime.now();
         this.agent = agent;
+        this.log = log;
+    }
+
+    public Log getLog() {
+        return log;
+    }
+
+    public void setLog(Log log) {
+        this.log = log;
     }
 
     public Long getId() {

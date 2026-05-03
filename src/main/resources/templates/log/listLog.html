@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Log</title>
+</head>
+<body>
+
+<h1>Lista Log</h1>
+
+<ul>
+    <li th:each="log : ${logs}">
+        <div>
+            <span th:text="${log.id}"></span>
+            <span th:text="${log.descrizione}"></span>
+        </div>
+
+        <p>Link:</p>
+        <a th:href="@{/log/{id}/img(id=${log.id})}" th:text="${log.id}"></a>
+
+        <p>Visualizzazioni:</p>
+        <ul>
+            <li th:each="view : ${log.views}">
+                <span th:text="${view.id}"></span>
+                <span th:text="${view.ip}"></span>
+                <span th:text="${view.agent}"></span>
+                <span th:text="${view.data}"></span>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+</body>
+</html>

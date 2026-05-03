@@ -1,8 +1,6 @@
 package com.loriek.crmloriek.model.log;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +27,7 @@ public class Log {
 
     public void addView(View view) {
         views.add(view);
+        view.setLog(this);
     }
 
     public Long getId() {
