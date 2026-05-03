@@ -10,10 +10,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class DataInitializer {
 
+
+
     @Bean
     public CommandLineRunner initData(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
+
             if (userRepository.findByUsername("admin").isEmpty()) {
+
+
+
                 User admin = new User();
                 admin.setUsername("admin");
                 admin.setPassword(passwordEncoder.encode("admin123"));

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
+import com.loriek.crmloriek.utils.IpUtils;
 
 import java.io.IOException;
 
@@ -33,7 +34,7 @@ public class ViewCotroller {
         byte[] bytes = imgFile.getInputStream().readAllBytes();
 
         if (log != null) {
-            String ip = getClientIp(request);
+            String ip = IpUtils.getClientIp(request);
             String agent = request.getHeader("User-Agent");
 
             View view = new View(ip, agent, log);
@@ -48,11 +49,4 @@ public class ViewCotroller {
                 .body(bytes);
     }
 
-    private String getClientIp(HttpServletRequest request) {
-        String xfHeader = request.getHeader("X-Forwarded-For");
-        if (xfHeader == null) {
-            return request.getRemoteAddr();
-        }
-        return xfHeader.split(",")[0];
-    }
 }
