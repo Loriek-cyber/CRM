@@ -24,20 +24,20 @@ public class RedirectController {
     @GetMapping("/r/{uuid}")
     public String redirect(@PathVariable String uuid, HttpServletRequest request) {
 
-        Redirect redirect = redirectService.getRedirect(uuid);
+        String ip = IpUtils.getClientIp(request);
+        String agent = request.getHeader("User-Agent");
+        
+        Redirect redirect = redirectService.recordView(uuid, ip, agent);
+        
         if (redirect == null) {
             return "errors/404";
         }
 
-        View view = new View();
-        view.setIp(IpUtils.getClientIp(request));
-        view.setAgent(request.getHeader("User-Agent"));
-        view.setData(LocalDateTime.now());
+        String targetUrl = redirect.getUrl();
+        if (targetUrl != null && !targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
+            targetUrl = "https://" + targetUrl;
+        }
 
-
-        redirect.getLog().addView(view);
-        redirectService.save(redirect);
-
-        return "redirect:" + redirect.getUrl();
+        return "redirect:" + targetUrl;
     }
 }

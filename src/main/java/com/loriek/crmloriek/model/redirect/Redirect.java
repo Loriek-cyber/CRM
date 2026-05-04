@@ -10,7 +10,7 @@ public class Redirect {
     @Id
     public String uudi;
     public String url;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     public Log log;
 
@@ -26,6 +26,7 @@ public class Redirect {
     }
 
     public Redirect(String url) {
+        this.url = url;
     }
 
     public String getUudi() {

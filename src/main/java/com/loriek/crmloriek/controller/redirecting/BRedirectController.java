@@ -18,20 +18,20 @@ public class BRedirectController {
         this.redirectRepository = redirectRepository;
     }
 
-    @GetMapping("/redirect/list")
+    @GetMapping("/redirects/list")
     public String b(Model model) {
-        model.addAttribute("redirect", redirectRepository.findAll());
-        return "redirect/list";
+        model.addAttribute("redirects", redirectRepository.findAll());
+        return "redirects/list";
     }
 
-    @GetMapping("/redirect/new")
+    @GetMapping("/redirects/new")
     public String b() {
-        return "redirect/new";
+        return "redirects/new";
     }
 
-    @PostMapping("/redirect/new")
+    @PostMapping("/redirects/new")
     public String b(String url) {
-
-        return "redirect:/redirect/list";
+        redirectService.save(new Redirect(url));
+        return "redirect:/redirects/list";
     }
 }

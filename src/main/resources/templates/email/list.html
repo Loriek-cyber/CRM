@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Email</title>
+</head>
+<body>
+
+<h1>Lista Email</h1>
+
+<!-- The select tag wraps the options -->
+<select name="selectedEmailId" id="emailDropdown">
+    <!-- The option tag is what actually loops and displays the data -->
+    <option th:each="email : ${emails}"
+            th:value="${email.id}"
+            th:text="${email.sender}">
+    </option>
+</select>
+
+</body>
+</html>

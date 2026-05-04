@@ -29,8 +29,8 @@ public class LogController {
     }
 
     @PostMapping("/new-log")
-    public String newLog(@Param("descrizione") String descrizione) {
-        Log log = new Log(descrizione);
+    public String newLog() {
+        Log log = new Log();
         logRepository.save(log);
         return "redirect:/logs";
     }

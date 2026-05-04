@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Redirect</title>
+</head>
+<body>
+
+<a th:href="@{/redirects/new}">Nuovo redirect</a>
+    <h1>Lista Redirect</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Short Link</th>
+                <th>Destination URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="redirect : ${redirects}">
+                <td>
+                    <a th:href="@{'/r/' + ${redirect.uudi}}" th:text="${'/r/' + redirect.uudi}"></a>
+                </td>
+                <td>
+                    <a th:href="${redirect.url}" th:text="${redirect.url}"></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

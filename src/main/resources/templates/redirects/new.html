@@ -5,7 +5,9 @@
     <title>New Redirect</title>
 </head>
 <body>
-    <form action="/redirect/new" method="post">
+<a th:href="@{/redirects/list}">Lista redirect</a>
+<h1>New Redirect</h1>
+    <form th:action="@{/redirects/new}" method="post">
         <label for="url">URL:</label>
         <input type="text" id="url" name="url" required>
         <button type="submit">Save</button>
