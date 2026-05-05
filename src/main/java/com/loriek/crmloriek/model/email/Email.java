@@ -41,7 +41,7 @@ public class Email {
         this.subject = subject;
         this.body = body;
         this.data = LocalDateTime.now();
-        this.seen = new Log("Email");
+        this.seen = new Log();
     }
 
     public Long getId() {

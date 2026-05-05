@@ -1,21 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>HomePage</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <title>CRMLoriek - Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/root.css}">
 </head>
 <body>
-    <h1>HomePage</h1>
+    <div class="container">
+        <div class="nav">
+            <a th:href="@{/}" class="btn btn-secondary">Home</a>
+            <a th:href="@{/redirects/list}">Redirects</a>
+            <a th:href="@{/logs}">Logs</a>
+            <form th:action="@{/logout}" method="post" style="margin-left: auto;">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
 
+        <div class="card">
+            <h1>Welcome to CRMLoriek</h1>
+            <p style="color: var(--text-muted);">Monitor and manage your tracking links from a single dashboard.</p>
+        </div>
 
-    <a th:href="@{/logs}">Lista log</a>
-    <a th:href="@{/new-log}">Nuovo log</a>
-    <a th:href="@{/redirects/list}">Lista redirect</a>
-    <a th:href="@{/redirects/new}">Nuovo redirect</a>
-
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="card">
+                <h3>Quick Actions</h3>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <a th:href="@{/redirects/new}" class="btn">Create New Redirect</a>
+                    <a th:href="@{/new-log}" class="btn btn-secondary">Create New Tracking Pixel</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>System Status</h3>
+                <p>Ready to track.</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

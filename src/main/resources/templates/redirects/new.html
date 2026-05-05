@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New Redirect</title>
+    <title>New Redirect - CRMLoriek</title>
+    <link rel="stylesheet" th:href="@{/css/root.css}">
 </head>
 <body>
-<a th:href="@{/redirects/list}">Lista redirect</a>
-<h1>New Redirect</h1>
-    <form th:action="@{/redirects/new}" method="post">
-        <label for="url">URL:</label>
-        <input type="text" id="url" name="url" required>
-        <button type="submit">Save</button>
-    </form>
+    <div class="container" style="max-width: 600px;">
+        <div class="nav">
+            <a th:href="@{/redirects/list}" class="btn btn-secondary">Back to List</a>
+        </div>
+
+        <div class="card">
+            <h1>Create New Redirect</h1>
+            <form th:action="@{/redirects/new}" method="post">
+                <div class="form-group">
+                    <label for="url">Destination URL</label>
+                    <input type="text" id="url" name="url" placeholder="https://example.com" required autofocus>
+                </div>
+                <button type="submit" class="btn">Generate Link</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

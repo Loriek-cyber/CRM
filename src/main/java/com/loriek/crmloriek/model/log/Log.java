@@ -13,6 +13,7 @@ public class Log {
 
 
     @OneToMany(mappedBy = "log", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("data DESC")
     private List<View> views;
 
     public Log() {

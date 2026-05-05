@@ -6,8 +6,14 @@ public class UUIDGenerator {
     private static final String CHARACTERS =  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final SecureRandom random = new SecureRandom();
     public static String generateUUID() {
-        StringBuilder sb = new StringBuilder(5);
-        for (int i = 0; i < 5 ; i++) {
+        return generateUUID(5);
+    }
+
+
+
+    public static String generateUUID(int length) {
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length ; i++) {
             sb.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
         }
         return sb.toString();

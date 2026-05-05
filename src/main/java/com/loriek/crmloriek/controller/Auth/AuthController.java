@@ -1,10 +1,11 @@
-package com.loriek.crmloriek.controller;
+package com.loriek.crmloriek.controller.Auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class AuthController {
+
 
     @GetMapping("/login")
     public String login() {

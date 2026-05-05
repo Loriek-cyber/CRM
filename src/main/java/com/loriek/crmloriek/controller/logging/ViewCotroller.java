@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import com.loriek.crmloriek.utils.IpUtils;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 
 @RestController
@@ -26,6 +27,7 @@ public class ViewCotroller {
 
 
     @GetMapping("/log/{id}/img")
+    @Transactional
     public ResponseEntity<byte[]> img(@PathVariable Long id, HttpServletRequest request) throws IOException {
 
         Log log = logRepository.findById(id).orElse(null);

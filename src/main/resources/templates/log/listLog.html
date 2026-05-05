@@ -1,33 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista Log</title>
+    <title>Tracking Logs - CRMLoriek</title>
+    <link rel="stylesheet" th:href="@{/css/root.css}">
 </head>
 <body>
-
-<h1>Lista Log</h1>
-
-<ul>
-    <li th:each="log : ${logs}">
-        <div>
-            ID: <span th:text="${log.id}"></span>
+    <div class="container">
+        <div class="nav">
+            <a th:href="@{/}" class="btn btn-secondary">Home</a>
+            <a th:href="@{/new-log}" class="btn">New Pixel</a>
         </div>
 
-        <p>Link:</p>
-        <a th:href="@{/log/{id}/img(id=${log.id})}" th:text="${log.id}"></a>
+        <h1>Tracking Logs</h1>
 
-        <p>Visualizzazioni:</p>
-        <ul>
-            <li th:each="view : ${log.views}">
-                <span th:text="${view.id}"></span>
-                <span th:text="${view.ip}"></span>
-                <span th:text="${view.agent}"></span>
-                <span th:text="${view.data}"></span>
-            </li>
-        </ul>
-    </li>
-</ul>
+        <div th:each="log : ${logs}" class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h3>Log ID: [[${log.id}]]</h3>
+                <span class="btn btn-secondary" style="font-size: 0.8rem;">Pixel ID: [[${log.id}]]</span>
+            </div>
 
+            <div style="margin-bottom: 1rem;">
+                <label>Tracking Pixel Link (Copy this):</label>
+                <code style="background: var(--bg); padding: 0.5rem; display: block; border-radius: 4px; border: 1px solid var(--secondary);">
+                    &lt;img src="/log/[[${log.id}]]/img" width="1" height="1" /&gt;
+                </code>
+            </div>
+
+            <h4>Views ([[${#lists.size(log.views)}]])</h4>
+            <div th:if="${not #lists.isEmpty(log.views)}" style="max-height: 200px; overflow-y: auto; margin-top: 0.5rem;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>IP Address</th>
+                            <th>User Agent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="view : ${log.views}">
+                            <td th:text="${#temporals.format(view.data, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${view.ip}"></td>
+                            <td th:text="${view.agent}" style="font-size: 0.8rem; color: var(--text-muted);"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p th:if="${#lists.isEmpty(log.views)}" style="color: var(--text-muted); font-style: italic;">No views recorded yet.</p>
+        </div>
+    </div>
 </body>
 </html>
