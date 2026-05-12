@@ -19,6 +19,7 @@
                     <tr>
                         <th>Short Link</th>
                         <th>Destination URL</th>
+                        <th>Views</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,10 +30,22 @@
                         <td style="word-break: break-all;">
                             <span th:text="${redirect.url}"></span>
                         </td>
+                        <td>
+                            <button class="btn btn-secondary" style="padding: 0.25rem 0.5rem; font-size: 0.8rem;" 
+                                    th:onclick="'openModal(\'modal-' + ${redirect.log.id} + '\')'">
+                                [[${#lists.size(redirect.log.views)}]] Views
+                            </button>
+
+                            <!-- Insert Modal Fragment for each redirect -->
+                            <div th:replace="~{fragments/log_modal :: logModal(${redirect.log.id}, ${redirect.log.views})}"></div>
+                        </td>
                     </tr>
                 </tbody>
-            </table>
-        </div>
-    </div>
-</body>
-</html>
+                </table>
+                </div>
+                </div>
+
+                <!-- Include Modal Scripts -->
+                <div th:replace="~{fragments/log_modal :: modalScripts}"></div>
+                </body>
+                </html>

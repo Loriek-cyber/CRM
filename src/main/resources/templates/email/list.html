@@ -1,21 +1,57 @@
 <!DOCTYPE html>
-<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista Email</title>
+    <title>Email Tracking - CRMLoriek</title>
+    <link rel="stylesheet" th:href="@{/css/root.css}">
 </head>
 <body>
+<div class="container">
+    <div class="nav">
+        <a th:href="@{/}" class="btn btn-secondary">Home</a>
+        <a th:href="@{/email/new}" class="btn">Track New Email</a>
+    </div>
 
-<h1>Lista Email</h1>
+    <h1>Email Tracking</h1>
 
-<!-- The select tag wraps the options -->
-<select name="selectedEmailId" id="emailDropdown">
-    <!-- The option tag is what actually loops and displays the data -->
-    <option th:each="email : ${emails}"
-            th:value="${email.id}"
-            th:text="${email.sender}">
-    </option>
-</select>
+    <div th:if="${#lists.isEmpty(emails)}" style="text-align: center; padding: 2rem;">
+        <p>No emails tracked yet.</p>
+    </div>
 
+    <div th:each="email : ${emails}" class="card">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+            <div>
+                <h3 th:text="${email.subject}">Subject</h3>
+                <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                    From: <span th:text="${email.sender}" style="color: var(--text-primary);"></span> | 
+                    To: <span th:text="${email.receiver}" style="color: var(--text-primary);"></span>
+                </p>
+                <p style="font-size: 0.8rem; color: var(--text-muted);" th:text="${#temporals.format(email.data, 'dd/MM/yyyy HH:mm')}"></p>
+            </div>
+            <div>
+                <span th:if="${#lists.isEmpty(email.seen.views)}" class="btn btn-secondary" style="font-size: 0.7rem; background: var(--secondary);">UNREAD</span>
+                <span th:if="${not #lists.isEmpty(email.seen.views)}" class="btn" style="font-size: 0.7rem; background: var(--accent); color: white;">SEEN [[${#lists.size(email.seen.views)}]] TIMES</span>
+                
+                <button class="btn btn-secondary" style="font-size: 0.8rem; margin-left: 0.5rem;"
+                        th:onclick="'openModal(\'modal-' + ${email.seen.id} + '\')'">
+                    View Details
+                </button>
+            </div>
+        </div>
+
+        <div style="margin-top: 1rem; border-top: 1px solid var(--secondary); padding-top: 1rem;">
+            <label style="font-size: 0.8rem; color: var(--text-secondary);">Tracking Pixel URL (Insert in email HTML):</label>
+            <code style="background: var(--bg); padding: 0.5rem; display: block; border-radius: 4px; border: 1px solid var(--secondary); font-size: 0.8rem; margin-top: 0.5rem;">
+                &lt;img src="/email/track/[[${email.id}]]/pixel.png" width="1" height="1" /&gt;
+            </code>
+        </div>
+
+        <!-- Insert Modal Fragment -->
+        <div th:replace="~{fragments/log_modal :: logModal(${email.seen.id}, ${email.seen.views})}"></div>
+    </div>
+</div>
+
+<!-- Include Modal Scripts -->
+<div th:replace="~{fragments/log_modal :: modalScripts}"></div>
 </body>
 </html>

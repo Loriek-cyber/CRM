@@ -10,7 +10,8 @@
         <div class="nav">
             <a th:href="@{/}" class="btn btn-secondary">Home</a>
             <a th:href="@{/redirects/list}">Redirects</a>
-            <a th:href="@{/logs}">Logs</a>
+            <a th:href="@{/email/list}">Emails</a>
+            <a th:href="@{/logs}">Pixels</a>
             <form th:action="@{/logout}" method="post" style="margin-left: auto;">
                 <button type="submit" class="btn btn-danger">Logout</button>
             </form>
@@ -26,6 +27,7 @@
                 <h3>Quick Actions</h3>
                 <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                     <a th:href="@{/redirects/new}" class="btn">Create New Redirect</a>
+                    <a th:href="@{/email/new}" class="btn">Track New Email</a>
                     <a th:href="@{/new-log}" class="btn btn-secondary">Create New Tracking Pixel</a>
                 </div>
             </div>

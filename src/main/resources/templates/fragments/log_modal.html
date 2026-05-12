@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="logModal(logId, logViews)" th:id="'modal-' + ${logId}" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" th:onclick="'closeModal(\'modal-' + ${logId} + '\')'">&times;</span>
+        
+        <div class="modal-header">
+            <h3>Log Details (ID: [[${logId}]])</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Total Views: [[${#lists.size(logViews)}]]</p>
+        </div>
+
+        <div class="modal-body">
+            <div th:if="${not #lists.isEmpty(logViews)}" style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>IP Address</th>
+                            <th>Location</th>
+                            <th>Device</th>
+                            <th>Browser/OS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="view : ${logViews}">
+                            <td th:text="${#temporals.format(view.data, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                            <td>
+                                <code th:text="${view.ip}" style="background: var(--bg); padding: 0.2rem 0.4rem; border-radius: 4px;"></code>
+                            </td>
+                            <td>
+                                <span th:text="${view.city + ', ' + view.country}"></span>
+                            </td>
+                            <td th:text="${view.device}"></td>
+                            <td>
+                                <div th:text="${view.browser}" style="font-size: 0.8rem;"></div>
+                                <div th:text="${view.os}" style="font-size: 0.7rem; color: var(--text-secondary);"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${#lists.isEmpty(logViews)}" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                <p>No views recorded yet for this log.</p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem; text-align: right;">
+            <button class="btn btn-secondary" th:onclick="'closeModal(\'modal-' + ${logId} + '\')'">Close</button>
+        </div>
+    </div>
+</div>
+
+<script th:fragment="modalScripts">
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+        document.body.style.overflow = "hidden"; // Prevent scrolling
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+        document.body.style.overflow = "auto"; // Restore scrolling
+    }
+
+    // Close when clicking outside
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    }
+</script>
+
+</body>
+</html>

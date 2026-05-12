@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Email Tracking - CRMLoriek</title>
+    <link rel="stylesheet" th:href="@{/css/root.css}">
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <a th:href="@{/email/list}" class="btn btn-secondary">Back to List</a>
+    </div>
+
+    <h1>Track New Email</h1>
+
+    <div class="card">
+        <form th:action="@{/email/new}" method="post">
+            <div class="form-group">
+                <label for="sender">Sender</label>
+                <input type="text" id="sender" name="sender" placeholder="e.g. marketing@company.com" required>
+            </div>
+            <div class="form-group">
+                <label for="receiver">Receiver</label>
+                <input type="text" id="receiver" name="receiver" placeholder="e.g. client@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="Email Subject" required>
+            </div>
+            <div class="form-group">
+                <label for="body">Body (Text)</label>
+                <textarea id="body" name="body" rows="4" placeholder="Email content..."></textarea>
+            </div>
+            <button type="submit" class="btn">Create & Generate Pixel</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

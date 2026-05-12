@@ -11,6 +11,11 @@ public class View {
     private String ip;
     private LocalDateTime data;
     private String agent;
+    private String country;
+    private String city;
+    private String device;
+    private String browser;
+    private String os;
 
     @ManyToOne
     @JoinColumn(name = "log_id")
@@ -24,6 +29,46 @@ public class View {
         this.data = LocalDateTime.now();
         this.agent = agent;
         this.log = log;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
+    }
+
+    public String getBrowser() {
+        return browser;
+    }
+
+    public void setBrowser(String browser) {
+        this.browser = browser;
+    }
+
+    public String getOs() {
+        return os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
     }
 
     public Log getLog() {

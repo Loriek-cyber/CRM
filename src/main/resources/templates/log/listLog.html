@@ -12,12 +12,18 @@
             <a th:href="@{/new-log}" class="btn">New Pixel</a>
         </div>
 
-        <h1>Tracking Logs</h1>
+        <h1>Tracking Pixels</h1>
 
         <div th:each="log : ${logs}" class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h3>Log ID: [[${log.id}]]</h3>
-                <span class="btn btn-secondary" style="font-size: 0.8rem;">Pixel ID: [[${log.id}]]</span>
+                <h3>Pixel ID: [[${log.id}]]</h3>
+                <div>
+                    <button class="btn btn-secondary" style="font-size: 0.8rem; margin-right: 0.5rem;"
+                            th:onclick="'openModal(\'modal-' + ${log.id} + '\')'">
+                        View Details ([[${#lists.size(log.views)}]])
+                    </button>
+                    <span class="btn btn-secondary" style="font-size: 0.8rem;">Pixel ID: [[${log.id}]]</span>
+                </div>
             </div>
 
             <div style="margin-bottom: 1rem;">
@@ -27,27 +33,12 @@
                 </code>
             </div>
 
-            <h4>Views ([[${#lists.size(log.views)}]])</h4>
-            <div th:if="${not #lists.isEmpty(log.views)}" style="max-height: 200px; overflow-y: auto; margin-top: 0.5rem;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>IP Address</th>
-                            <th>User Agent</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="view : ${log.views}">
-                            <td th:text="${#temporals.format(view.data, 'dd/MM/yyyy HH:mm')}"></td>
-                            <td th:text="${view.ip}"></td>
-                            <td th:text="${view.agent}" style="font-size: 0.8rem; color: var(--text-muted);"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p th:if="${#lists.isEmpty(log.views)}" style="color: var(--text-muted); font-style: italic;">No views recorded yet.</p>
+            <!-- Insert Modal Fragment -->
+            <div th:replace="~{fragments/log_modal :: logModal(${log.id}, ${log.views})}"></div>
         </div>
-    </div>
-</body>
-</html>
+        </div>
+
+        <!-- Include Modal Scripts -->
+        <div th:replace="~{fragments/log_modal :: modalScripts}"></div>
+        </body>
+        </html>
